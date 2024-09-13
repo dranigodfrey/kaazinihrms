@@ -1,0 +1,40 @@
+{% extends 'dashboard.html' %}
+ {% block menu_dashboard_class %}nav-link dash-active{% endblock %}"
+class="{% block menu_leave_class %}nav-link active{% endblock %}"   
+{% block title %}approve leave{% endblock %}    
+{% block content %}
+       
+<div class="container container-data-table">
+	<div style="display: flex; align-items: center; justify-content: start; gap: 20px; color: #1A2C3A;">
+        <a href="{% url 'leave_dashboard' %}" class="action-btn-edit"><i class="bx bx-sm bx-chevron-left" id="btn"></i>Back</a>
+        <h6 style="color: #4B5161;">Pending Leave Approval</h6>
+    </div>
+	<hr>
+	<div class="mt-5">
+		<table class="table table-striped mt-3" style="width: 100%;">
+			<thead class="table-" style="background-color: #121212; color: #fff;">
+				<th>Employee</th>
+				<th>Leave Type</th>
+				<th>leave_approved_by</th>
+                <th>Status</th>
+				<th>Action</th>
+			</thead>
+			<tbody>
+				{% for leave_request in leave_request_received %}
+				<tr>
+					<td>{{leave_request.leave_requested_by}}</td>
+                    <td>{{leave_request.leave_request}}</td>
+                    <td>{{leave_request.leave_approved_by}}</td>
+                    <td>{{leave_request.leave_request_status}}</td>
+					<td style="display: flex; gap: 30px;">
+						<a href="{% url 'update_leave_approval' leave_request.id %}" class="action-btn-edit">Approve</i></a>
+					</td>
+				</tr>
+				{% empty %}
+				<tr><td colspan="8"> <span  class="fw-bold">No pending leave to be diaplayed.</span></td></tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

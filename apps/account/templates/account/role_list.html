@@ -1,0 +1,42 @@
+{% extends 'dashboard.html' %}
+{% block menu_dashboard_class %}nav-link dash-active{% endblock %}
+{% block menu_account_class %}nav-link active{% endblock %}
+{% block title %}role lists{% endblock %}
+{% block content %}
+
+
+<div class="container container-data-table">
+    
+    <div style="display: flex; align-items: center; justify-content: start; gap: 20px; color: #1A2C3A;">
+        <a href="{% url 'account' %}" class="action-btn-edit"><i class="bx bx-sm bx-chevron-left" id="btn"></i>Back</a>
+        <h6 style="color: #4B5161;">Roles and Permissions</h6>
+    </div>
+	<hr>
+<form method="post" style="display: flex; align-items: center; gap: 5px;">
+    {% csrf_token %}
+    <label for="name">Create New Role:</label>
+    <input type="text" name="name" required>
+    <button type="submit" class="btn btn-dark">Create</button>
+</form>
+<div>
+		<table class="table table-hover mt-3">
+			<thead class="table-" style="background-color: #1A2C3A; color: #fff;">
+				<th>Roles</th>
+				<th class="action-btn">ACTION</th>
+			</thead>
+			<tbody>
+				 {% for role in roles %}
+				<tr>
+					<td>{{ role.name }}</td>
+					<td class="action-btn">
+						<a href="{% url 'role_edit' role.id %}" class="action-btn-edit">Permissions</a>
+                        <a href="{% url 'role_delete' role.id %}" class="action-btn-del">Delete</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}
+

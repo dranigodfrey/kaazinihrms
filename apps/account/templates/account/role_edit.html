@@ -1,0 +1,33 @@
+{% extends 'dashboard.html' %}
+{% block menu_dashboard_class %}nav-link dash-active{% endblock %}
+{% block menu_account_class %}nav-link active{% endblock %}
+{% block title %}roles and permissions{% endblock %}
+{% block content %}
+
+<div class="container container-data-table">
+   
+    <div style="display: flex; align-items: center; justify-content: start; gap: 20px; color: #1A2C3A;">
+        <a href="{% url 'role_create' %}" class="action-btn-edit"><i class="bx bx-sm bx-chevron-left" id="btn"></i>Back</a>
+        <h6 style="color: #4B5161;">Edit Permissions: {{ role.name }}</h6>
+    </div>
+    <hr>
+    <div class="search-container mt-4">
+        <form method="post">
+            {% csrf_token %}
+            <ul>
+                {% for permission in permissions %}
+                    <li style="list-style: none;">
+                        <input type="checkbox" name="permissions" value="{{ permission.id }}"
+                            {% if permission in role.permissions.all %}checked{% endif %}>
+                        {{ permission.name }}
+                    </li>
+                {% endfor %}
+            </ul>
+            <button type="submit" class="btn my-4">Save Changes</button>
+        </form>
+    </div>
+    <div style="display: flex; align-items: center; justify-content: start; gap: 20px; color: #1A2C3A;">
+        <a href="{% url 'role_create' %}" class="action-btn-edit"><i class="bx bx-sm bx-chevron-left" id="btn"></i>Back</a>
+    </div>
+</div>
+{% endblock %}

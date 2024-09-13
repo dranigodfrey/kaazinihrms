@@ -1,0 +1,39 @@
+{% extends 'setting/setting.html' %}
+{% block menu_dashboard_class %}nav-link dash-active{% endblock %}
+{% block setting_company_class %}setting-active {% endblock %}
+{% block title %}company{% endblock %}
+{% block setting_content %}
+<div class="container">  
+		<div class="row">
+			 <div class="col"  style="padding: 0px 30px;">
+				<div class="setting-btn ">
+					<a href="{% url 'add_company' %}"> <b>+</b>  Company</a>
+				</div>
+           
+				<table class="table table-hover mt-3" style="width: 100%;">
+					<thead class="table-" style="background-color: #1A2C3A; color: #fff;">
+						<th>Company</th>
+						<th>Type</th>
+						<th>Email</th>
+						<th>Website</th>
+						<th>Action</th>
+					</thead>
+					<tbody>
+						{% for company in companies %}
+						<tr>
+							<td>{{company.company_name}}</td>
+							<td>{{company.company_type}}</td>
+							<td>{{company.company_email}}</td>
+							<td><a href="{{company.company_website}}">{{company.company_website}}</a></td>
+							<td style="display: flex; gap: 30px;">
+								<a href="{% url 'update_company' company.id %}" class="action-btn-edit">Edit</a>
+							</td>
+
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

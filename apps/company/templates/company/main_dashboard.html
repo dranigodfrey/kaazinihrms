@@ -1,0 +1,272 @@
+{% extends 'dashboard.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block menu_dashboard_class %}nav-link dash-active active{% endblock %}"
+
+{% block private_style %}
+<style>
+  .dash-employee-number{
+    position: relative;
+  }
+  .donut-inner {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    top: 57%;
+    bottom: 60%;
+    right: 50%;
+  }
+  .donut-inner h5 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .donut-inner span {
+    font-size: 12px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+    
+<div class="container">
+	<div class="main-dashboard">
+    <div class="dash-header">
+      <ul>
+          <li>
+              <a href="{% url 'approved_leave' %}">
+              <i class="bx bx-sm bx-calendar-minus" style="color: #4bc0c0;"></i>
+              <span>
+                <h5 style="color: #4bc0c0;">{{leave_started}}</h5>
+                <p>On Leaves</p>
+              </span>
+              </a>
+          </li>
+          {% if user.user_role  == 'admin'%}
+          <li>
+              <a href="{% url 'pending_leave' %}">
+              <i class="bx bx-sm bx-calendar" style="color: #ffcd56;"></i>
+              <span>
+                <h5 style="color: #ffcd56;">{{leave_request_pending}}</h5>
+                <p>Pending Leaves</p>
+              </span>
+              </a>
+          </li>
+          <li>
+              <a href="{% url 'rejected_leave' %}">
+              <i class="bx bx-sm bx-calendar-x" style="color: #ff6384;"></i>
+              <span>
+                <h5 style="color: #ff6384;">{{leave_request_rejected}}</h5>
+                <p>Rejected Leaves</p>
+              </span>
+              </a>
+          </li>
+          {% endif %}
+          <li>
+              <a href="{% url 'approved_leave' %}">
+              <i class="bx bx-sm bx-calendar-check" style="color: #1A2C3A;"></i>
+              <span>
+                <h5 style="color: #1A2C3A;">{{leave_up_coming}}</h5>
+                <p>Up Coming Leaves</p>
+              </span>
+              </a>
+          </li>
+      </ul>
+    </div>
+
+    <div class="dash-employee-role">
+        <div>
+          <canvas id="employeeDepartmentChart"></canvas>
+        </div>
+    </div>
+    <div>
+        <!-- <canvas id="employeeTitleChart" width="400" height="400"></canvas> -->
+    </div>
+ <!-- <canvas id="genderChart" width="400" height="400"></canvas> -->
+    <div class="dash-employee-number">
+      <!-- <h6 class="mb-4">Employees by Sex</h6> -->
+      <div>
+        <canvas id="genderChart"></canvas>
+      </div>
+       <div class="donut-inner">
+            <h5>{{ total_employees }}</h5>
+            <p>Employees</p>
+        </div>
+    </div>
+
+  
+
+    
+    <div class="dash-turnover">
+      <div class="dash-turnover-flex">
+        <div class="dash-turnover-dept">
+          <div>
+              <canvas id="employeeTitleChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>   
+	</div>
+
+<script>
+        const employee_role_chart = document.getElementById('employee-role-chart');
+        const employee_turnover_chart = document.getElementById('employee-turnover-chart');
+        const employee_department_turnover_chart = document.getElementById('employee-department-turnover-chart');
+
+
+      $(document).ready(function() {
+            // Fetch data via Ajax
+            $.ajax({
+                url: "{% url 'employee_gender_data' %}",
+                method: 'GET',
+                success: function(data) {
+                  
+                    // Create a doughnut chart using the data
+                    var ctx = document.getElementById('genderChart').getContext('2d');
+                    var genderChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                data: data.counts,
+                                backgroundColor: [
+                                    '#ffcd56',// yellow for female
+                                    '#1A2C3A' // black for male
+                                ],
+                                borderColor: [
+                                    '#FFFFFF',
+                                    '#FFFFFF'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Gender Distribution of Employees'
+                                }
+                            }
+                        }
+                    });
+                },
+                error: function(error) {
+                    console.error('Error fetching gender data:', error);
+                }
+            });
+        });
+
+
+
+ $(document).ready(function() {
+            $.ajax({
+                url: "{% url 'employee_title_data' %}", // URL of the view returning JSON data
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    const ctx = document.getElementById('employeeTitleChart').getContext('2d');
+                    const employeeTitleChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: data.titles,
+                            datasets: [{
+                                label: 'Number of Employees',
+                                data: data.counts,
+                                backgroundColor: '#1A2C3A',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'x', // This option configures the chart to be horizontal
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    grid: {
+                                    display: false
+                                    },
+                                },
+                                 y: {
+                                      grid: {
+                                        display: false
+                                        }
+                                    }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Number of Employees by Title'
+                                }
+                            }
+                        }
+                    });
+                },
+                error: function(error) {
+                    console.error("Error fetching data:", error);
+                }
+            });
+        });
+ 
+
+
+
+ $(document).ready(function() {
+            $.ajax({
+                url: "{% url 'employee_department_data' %}", // URL of the view returning JSON data
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    const ctx = document.getElementById('employeeDepartmentChart').getContext('2d');
+                    const employeeTitleChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: data.departments,
+                            datasets: [{
+                                label: 'Number of Employees',
+                                data: data.counts,
+                                backgroundColor: '#1A2C3A',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y', // This option configures the chart to be horizontal
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    grid: {
+                                    display: false
+                                    },
+                                },
+                                 y: {
+                                      grid: {
+                                        display: false
+                                        }
+                                    }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Number of Employees by Department'
+                                }
+                            }
+                        }
+                    });
+                },
+                error: function(error) {
+                    console.error("Error fetching data:", error);
+                }
+            });
+        });
+    </script>
+</div>
+{% endblock %}

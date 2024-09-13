@@ -1,0 +1,45 @@
+{% extends 'dashboard.html' %}
+{% block menu_dashboard_class %}nav-link dash-active{% endblock %}
+{% block menu_contract_class %}nav-link active{% endblock %}
+{% block content %}
+       
+<div class="containe container-data-table">
+	<h6 style="color: #4B5161;">Employees without Contract</h6>
+	<hr>
+    <div class="search-container mt-4"  style="display:flex;justify-content: center;">
+		<form action="" method="GET" style="display: flex; justify-content: center; gap: 0.5px;">
+			{% csrf_token %}
+			<input class="form-control" type="search" name="search" placeholder="Search" aria-label="Search">
+			<button type="submit"><i class="bx bx-sm bx-search-alt" id="btn"></i></button>
+		</form>
+	</div>
+	<div>
+		<table class="table table-hover mt-3" style="width: 100%;">
+			<thead class="table-" style="background-color: #1A2C3A; color: #fff;">
+				<th>ID</th>
+				<th>Employee</th>
+				<th>Sex</th>
+				<th>Email</th>
+                <th>Phone</th>
+                <th>Department</th>
+				<th>Action</th>
+			</thead>
+			<tbody>
+				{% for employee in employees %}
+				<tr>
+					<td>{{employee.id}}</td>
+					<td>{{employee.employee_firstname}} {{employee.employee_lastname}}</td>
+                    <td>{{employee.employee_sex}}</td>
+                    <td>{{employee.employee_email}}</td>
+                    <td>{{employee.employee_phone}}</td>
+					<td>{{employee.office_department}}</td>
+					<td style="display: flex; gap: 30px;">
+						<a href="{% url 'add_employee_contract' employee.id %}">Add Contract</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

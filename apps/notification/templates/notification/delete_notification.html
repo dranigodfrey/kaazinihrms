@@ -1,0 +1,15 @@
+{% extends 'dashboard.html' %}
+{% block content %}
+{% load crispy_forms_tags %}   
+<div class="container">
+	<div>
+		<h1>Delete Notification</h1>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <p>Are you sure, you want to delete this {{objects}}</p>
+            <a href="{% url 'notification' %}"><button class="btn btn-outline-dark" type="button" value="Cancel">Cancel</button></a>
+            <button class="btn btn-danger" type="submit" value="Delete"> Delete</button>
+        </form>
+	</div>
+</div>
+{% endblock %}

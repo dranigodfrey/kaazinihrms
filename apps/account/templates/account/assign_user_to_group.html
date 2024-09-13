@@ -1,0 +1,12 @@
+{% extends 'dashboard.html' %}
+{% block menu_dashboard_class %}nav-link dash-active{% endblock %}
+{% block menu_account_class %}nav-link active{% endblock %}
+{% block content %}
+    <h2>Assign User to Groups</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Assign Groups</button>
+    </form>
+    <a href="{% url 'main_dashboard' %}">Back to Admin Dashboard</a>
+{% endblock %}

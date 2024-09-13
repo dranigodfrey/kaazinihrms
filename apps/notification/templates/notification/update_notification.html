@@ -1,0 +1,15 @@
+{% extends 'dashboard.html' %}
+{% block content %}
+{% load crispy_forms_tags %}   
+<div class="container">
+	<div>
+		<h1>Update Notification </h1>
+         {% block title %}{% endblock %}
+        <form action="" enctype="multipart/form-data" method="POST" class="fw-bold fs-6">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-dark">Update Notification</button>
+        </form>
+	</div>
+</div>
+{% endblock %}

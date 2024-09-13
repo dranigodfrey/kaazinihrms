@@ -1,0 +1,37 @@
+{% extends 'dashboard.html' %}
+{% block content %}
+          
+<div class="container">
+	<div>
+		<table class="table table-striped mt-3" style="width: 100%;">
+			<thead class="table-" style="background-color: #1A2C3A; color: #fff;">
+				<th>ID</th>
+				<th>Sender</th>
+				<th>Recipient</th>
+				<th>Message</th>
+                <th>Date</th>
+                <th>Status</th>
+				<th>Action</th>
+			</thead>
+			<tbody>
+				{% for notification in notifications %}
+				<tr>
+					<td>{{notification.id}}</td>
+					<td>{{notification.sender}}</td>
+                    <td>{{notification.recipient}}</td>
+					<td>{{notification.message}}</td>
+                    <td>{{notification.create_at|timesince}}</td>
+                    <td>{{notification.status}}</td>
+					<td style="display: flex; gap: 30px;">
+						{% if notification.status != "read" %}
+						<a href="{% url 'update_notification' notification.id %}"><i class="bx bx-sm bx-pencil btn-edit" id="btn"></i></a>
+						{% endif %}
+						<a href="{% url 'delete_notification' notification.id %}"><i class="bx bx-sm bx-trash btn-delete" id="btn"></i></a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

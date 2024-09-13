@@ -1,0 +1,18 @@
+{% extends 'dashboard.html' %}
+{% block menu_dashboard_class %}nav-link dash-active{% endblock %}"
+{% block menu_account_class %}nav-link active{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}  
+
+<div class="container container-data-table">
+<h6 style="color: #4B5161;">Edit User: {{ user.username }}</h6>
+	<hr>
+    <div class="mt-4">
+    <form method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button type="submit" class="form-control btn btn-dark fw-bold">Save Changes</button>
+    </form>
+    </div>
+</div>
+{% endblock %}

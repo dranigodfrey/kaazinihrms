@@ -1,0 +1,36 @@
+{% extends 'setting/setting.html' %}
+{% block setting_leave_active %}setting-active{% endblock %}
+{% block title %}add leave type{% endblock %}
+{% block setting_content %}     
+<div class="container container-data-table">
+	 <div class="row">
+            <div class="col">
+                <div class="setting-btn">
+                    <a href="{% url 'add_leave_type' %}"><b>+</b>  Leave Type</a>
+                </div>
+				<table class="table table-hover mt-3" style="width: 100%;">
+					<thead class="table-" style="background-color: #1A2C3A; color: #fff;">
+						<th>Leave Type</th>
+						<th>Number of Days</th>
+						<th>Carryover Unused</th>
+						<th class="action-btn">Action</th>
+					</thead>
+					<tbody>
+						{% for leave_type in leave_types %}
+						<tr>
+							<td>{{leave_type.leave_type}}</td>
+							<td>{{leave_type.number_of_leave_days}}</td>
+							<td>{{leave_type.carryover_unused}}</td>
+							<td class="action-btn">
+								<a href="{% url 'update_leave_type' leave_type.id %}" class="action-btn-edit">Edit</a>
+								<a href="{% url 'delete_leave_type' leave_type.id %}" class="action-btn-del">Delete</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'dashboard.html' %}
+ {% block menu_dashboard_class %}nav-link {% endblock %}"
+class="{% block menu_leave_class %}nav-link active{% endblock %}"    
+{% block title %}employee leave{% endblock %}   
+{% block content %}
+
+<style>
+	 /* Form Styles */
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+		form {
+			display: flex;
+			justify-content: center; 
+			gap: 5px;
+		}
+
+        input{
+			padding: 4px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+		}
+		select {
+            padding: 7px 7px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 150px;
+        }
+
+        button, .action-btn-add {
+            padding: 6px 8px;
+            background-color: #1A2C3A;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+			text-decoration: none;
+			display: flex;
+			gap: 5px;
+        }
+
+        button:hover ,.action-btn-add:hover{
+            background-color: #29455a;
+			color: white;
+        }
+
+		.btn-link {
+			text-decoration: none;
+			padding: 4px 6px;
+			color: #1A2C3A;
+            border: 1.5px solid #1A2C3A;
+            border-radius: 4px;
+            cursor: pointer;
+		}
+		#btn-export{
+			display: flex;
+		}
+		.btn-link:hover {
+			background-color: #1A2C3A;
+			color: white;
+
+        }
+</style>
+          
+<div class="container container-data-table">
+	 <div style="display: flex; align-items: center; justify-content: start; gap: 20px; color: #1A2C3A;">
+        <a href="{% url 'leave_dashboard' %}" class="action-btn-edit"><i class="bx bx-sm bx-chevron-left" id="btn"></i>Back</a>
+        <h6 style="color: #4B5161;">Employee Leave </h6>
+    </div>
+	<hr>
+
+		<div class="mt-4 form-container">
+			<!-- Search Form -->
+			<form method="get" action="">
+				{{ search_form.search }} 
+				<button type="submit">Search</i></button>
+			</form>
+			<div style="display: flex; gap: 5px;">
+			<a style="background-color: #1A2C3A; color: #fff;" class="btn-link" href="{% url 'add_employee_leave' %}" id = "btn-export"><i class="bx bx-sm bx-plus" id="btn"></i> <span>Assign</span></a>
+			<a style="background-color: #1A2C3A; color: #fff;" class="btn-link" href="{% url 'export_leave' %}" id = "btn-export"><i class="bx bx-sm bx-spreadsheet" id="btn"></i> <span>Export</span></a>
+			</div>
+		</div>
+
+	<div>
+		<table class="table table-hover mt-3" style="width: 100%;">
+			<thead class="table-" style="background-color: #1A2C3A; color: #fff;">
+				<th>Employee</th>
+				<th>Leave Type</th>
+				<th>Leave Balance</th>
+				<th class="action-btn">Action</th>
+			</thead>
+			<tbody>
+				{% for employee_leave in employee_leaves %}
+				<tr>
+					<td>{{employee_leave.employee}}</td>
+                    <td>{{employee_leave.leave_type}}</td>
+					<td>{{employee_leave.leave_balance}}</td>
+					<td class="action-btn">
+						<a href="{% url 'update_employee_leave' employee_leave.id %}" class="action-btn-edit">Edit</a>
+						<a href="{% url 'delete_employee_leave' employee_leave.id %}" class="action-btn-del">Delete</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

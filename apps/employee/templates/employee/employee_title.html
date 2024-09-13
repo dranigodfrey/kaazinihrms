@@ -1,0 +1,31 @@
+{% extends 'setting/setting.html' %}
+{% block setting_job_active %}setting-active{% endblock %}
+{% block title %}employee title{% endblock %}
+{% block setting_content %}   
+<div class="container container-data-table">
+	<div class="setting-btn">
+		<a href="{% url 'add_employee_title' %}"><b>+</b>  Job Title</a>
+	</div>
+		<table class="table table-hover mt-3" style="width: 100%;">
+			<thead class="table-" style="background-color: #1A2C3A; color: #fff;">
+				<th>Title</th>
+				<th>Qualification</th>
+                <th>Is Active</th>
+                <th class="action-btn">Action</th>
+			</thead>
+			<tbody>
+				{% for employee_title in employee_titles %}
+				<tr>
+					<td>{{employee_title.title_name}}</td>
+                    <td>{{employee_title.education_level}}</td>
+					<td>{{employee_title.is_active}}</td>
+					<td class="action-btn">
+						<a href="{% url 'update_employee_title' employee_title.id %}" class="action-btn-edit">Edit</a>
+						<a href="{% url 'delete_employee_title' employee_title.id %}" class="action-btn-del">Delete</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+</div>
+{% endblock %}

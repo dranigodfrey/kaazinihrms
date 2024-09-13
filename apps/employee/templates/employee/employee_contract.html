@@ -1,0 +1,123 @@
+{% extends 'dashboard.html' %}
+{% block menu_dashboard_class %}nav-link dash-active{% endblock %}
+{% block menu_contract_class %} nav-link active{% endblock %}
+{% block title %}employee contract{% endblock %}
+{% block content %}
+
+<style>
+	 /* Form Styles */
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+		form {
+			display: flex;
+			justify-content: center; 
+			gap: 5px;
+		}
+
+        input{
+			padding: 4px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+		}
+		select {
+            padding: 7px 7px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 150px;
+        }
+
+        button {
+            padding: 6px 8px;
+            background-color: #1A2C3A;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #29455a;
+        }
+
+		.btn-link {
+			text-decoration: none;
+			padding: 4px 6px;
+			color: #1A2C3A;
+            border: 1.5px solid #1A2C3A;
+            border-radius: 4px;
+            cursor: pointer;
+		}
+		#btn-export{
+			display: flex;
+		}
+		.btn-link:hover {
+			background-color: #1A2C3A;
+			color: white;
+
+        }
+</style>
+       
+<div class="container container-data-table">
+	<h6 style="color: #4B5161;">Employee Contract</h6>
+	<hr>
+	<div class="form-container">
+		<!-- Search Form -->
+			<form method="get" action="">
+				{{ search_form.search }} 
+				<button type="submit">Search</i></button>
+			</form>
+			<!-- Filter Form -->
+			<form method="get" action="">
+				<!-- {{ filter_form.as_p }} -->
+				<div class="form-group">
+					{{filter_form.contract_status}}
+				</div>
+				<div class="form-group">
+					{{filter_form.job_title}}
+				</div>
+				<div>
+					<button type="submit">Filter</button>
+				</div>
+			</form>
+			<div style="display: flex; gap: 5px;">
+			<a class="btn-link" href="{% url 'employee_contract' %}" >Clear Filters</a>
+			<!-- </div>
+			<div> -->
+			<a class="btn-link" href="{% url 'export-employee-contract' %}" id = "btn-export"><i class="bx bx-sm bx-spreadsheet" id="btn"></i> <span>Export</span></a>
+			</div>
+
+		</div>
+
+		<table class="table  table-hover mt-4" style="width: 100%;">
+			<thead class="table-" style="background-color: #1A2C3A; color: #fff;">
+				<th>Employee</th>
+				<th>Position</th>
+				<th>Contract</th>
+                <th>Status</th>
+				<th>Action</th>
+			</thead>
+			<tbody>
+				{% for employee_contract in employee_contracts %}
+				<tr>
+					<td>{{employee_contract.employee}}</td>
+                    <td>{{employee_contract.title}}</td>
+					<td>{{employee_contract.start_date}} - {{employee_contract.end_date}}</td>
+                    <td>{{employee_contract.contract_status}}</td>
+					<td >
+						<a href="{% url 'update_employee_contract' employee_contract.id %}" class="action-btn-edit">Edit</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

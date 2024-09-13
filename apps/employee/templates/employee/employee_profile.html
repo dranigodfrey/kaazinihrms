@@ -1,0 +1,127 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% block menu_dashboard_class %}nav-link dash-active {% endblock %}
+{% block menu_profile_class %}nav-link active{% endblock %}
+{% block title %}employee profile{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}   
+       
+<div class="container container-data-table">
+    <h6 style="color: #4B5161;">Employee profile</h6>
+	<hr>
+	<div class="row my-4">
+        <div class="col-4">
+
+            
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Change Profile Photo</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" enctype="multipart/form-data" method="POST">
+                                {% csrf_token %}
+                                {{form|crispy}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-dark btn btn-primary">Save changes</button>
+                    </div>
+                     </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="employee-profile">
+            {% for profile in employee_profile %}
+                {% if profile.profile_pic %}
+				<img src="{{profile.profile_pic.url}}" alt="Profile photo"/>
+				{% else %}
+				<img src="{% static 'images/default_profile.png' %}" alt="Profile photo"/>
+				{% endif %}	
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-dark change-profile-photo" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="bx bx-sm bx-camera" id="btn"></i>
+                </button>
+
+                <div class="employee-name">
+                    {% if profile.user.middle_name %}
+                    <p> <span>{{profile.user.first_name}} {{profile.user.middle_name}} {{profile.user.second_name}}</span></p>
+                    {% else %}
+                    <p> <span>{{profile.user.first_name}} {{profile.user.second_name}}</span></p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% for contract in employee_contract %}
+             <span> {{contract.title}}</span>
+            {% endfor %}
+            {% for profile in employee_profile %}
+                <div class="employee-contact">
+                    <p><span id="title">Phone: </span>{{profile.employee_phone}}</p>
+                    <p><span id="title">Email: </span>{{profile.employee_email}}</p>
+               </div>
+            {% endfor %}
+                
+            </div>
+        </div>
+        <div class="col align-self-center">
+            <div>
+                <form >
+                    {% for contract in employee_contract %}
+                    <div class="mb-2 row">
+                        <label for="position" class="col-sm-2 col-form-label">Position:</label>
+                        <div class="col-sm-6">
+                        <input class="form-control form-control-sm" type="text" id="position" value="{{contract.title}}" readonly class="form-control-plaintext" disabled >
+                        </div>
+                    </div>
+                    <div class="mb-2 row">
+                        <label for="startdate" class="col-sm-2 col-form-label">Start Date:</label>
+                        <div class="col-sm-6">
+                        <input class="form-control form-control-sm" type="text" id="startdate" value="{{contract.start_date}}" readonly class="form-control-plaintext" disabled>
+                        </div>
+                    </div>
+
+                    <div class="mb-2 row">
+                        <label for="probation_end" class="col-sm-2 col-form-label">Probation End:</label>
+                        <div class="col-sm-6">
+                        <input class="form-control form-control-sm" type="text" id="probation_end" value="{{contract.probation_end}}" readonly class="form-control-plaintext" disabled>
+                        </div>
+                    </div>
+                     <div class="mb-2 row">
+                        <label for="end_date" class="col-sm-2 col-form-label">Last Day:</label>
+                        <div class="col-sm-6">
+                        <input class="form-control form-control-sm" type="text" id="end_date" value="{{contract.end_date}}" readonly class="form-control-plaintext" disabled>
+                        </div>
+                    </div>
+                     <div class="mb-2 row">
+                        <label for="type_of_employement" class="col-sm-2 col-form-label">Employment:</label>
+                        <div class="col-sm-6">
+                        <input class="form-control form-control-sm" type="text" id="type_of_employement" value="{{contract.type_of_employement}}" readonly class="form-control-plaintext" disabled>
+                        </div>
+                    </div>
+                    <div class="mb-2 row">
+                        <label for="type_of_commitment" class="col-sm-2 col-form-label">Commitment:</label>
+                        <div class="col-sm-6">
+                        <input class="form-control form-control-sm" type="text" id="type_of_commitment" value="{{contract.type_of_commitment}}" readonly class="form-control-plaintext" disabled>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </form>
+            </div>
+       </div>
+
+
+	</div>
+</div>
+{% endblock %}

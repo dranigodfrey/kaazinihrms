@@ -1,0 +1,36 @@
+{% extends 'dashboard.html' %}
+{% block menu_dashboard_class %}nav-link {% endblock %}"
+class="{% block menu_employee_class %}nav-link active{% endblock %}"
+{% block title %}deparmant manager{% endblock %}
+{% block content %}
+       
+<div class="container container-data-table">
+	<div class="mt-4">
+		<table class="table table-striped mt-3" style="width: 100%;">
+			<thead class="table-" style="background-color: #4B5161; color: #fff;">
+				<th>ID</th>
+				<th>Employee</th>
+				<th>Department</th>
+				<th>Start Date</th>
+                <th>End Date</th>
+				<th>Action</th>
+			</thead>
+			<tbody>
+				{% for department_manager in department_managers %}
+				<tr>
+					<td>{{department_manager.id}}</td>
+					<td>{{department_manager.dept_manager}}</td>
+                    <td>{{department_manager.department}}</td>
+					<td>{{department_manager.start_date}}</td>
+                    <td>{{department_manager.start_date}}</td>
+					<td style="display: flex; gap: 30px;">
+						<a href="{% url 'update_department_manager' department_manager.id %}"><i class="bx bx-sm bx-pencil btn-edit" id="btn"></i></a>
+						<a href="{% url 'delete_department_manager' department_manager.id %}"><i class="bx bx-sm bx-trash btn-delete" id="btn"></i></a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

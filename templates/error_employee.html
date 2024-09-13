@@ -1,0 +1,24 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% block menu_dashboard_class %}nav-link dash-active {% endblock %}
+{% block menu_profile_class %}nav-link active{% endblock %}
+{% block title %}employee profile{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}     
+<div class="container container-data-table">
+	     <div class="row">
+            <div class="col">
+                <div class="d-flex align-items-center justify-content-center">
+                <div class="text-center">
+                    <h1 class="display-1 fw-bold">404</h1>
+                    <p class="fs-3"> <span class="text-danger">Opps!</span> Profile Page not found.</p>
+                    <p class="lead">
+                        Please conduct your Human Resource Adminstrator for help.
+                    </p>
+                    <a href="{% url 'employee' %}" class="btn btn-dark btn-primary mt-3">See Colleagues</a>
+                </div>
+            </div>
+			</div>
+	    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'dashboard.html' %}
+{% block menu_dashboard_class %}nav-link {% endblock %}"
+{% block menu_setting_class %}nav-link active{% endblock %}"
+{% block content %}
+{% load crispy_forms_tags %}   
+<div class="container">
+	<div>
+		<h1>Delete work schedule</h1>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <p>Are you sure, you want to delete this {{objects}}</p>
+            <a href="{% url 'workschedule' %}"><button class="btn btn-outline-dark" type="button" value="Cancel">Cancel</button></a>
+            <button class="btn btn-danger" type="submit" value="Delete"> Delete</button>
+        </form>
+	</div>
+</div>
+{% endblock %}

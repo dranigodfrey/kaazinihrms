@@ -1,0 +1,35 @@
+{% extends 'setting/setting.html' %}
+{% block menu_dashboard_class %}nav-link dash-active{% endblock %}
+{% block setting_department_class %}setting-active {% endblock %}
+{% block title %}department{% endblock %}
+{% block setting_content %} 
+<div class="container container-data-table">
+		<div class="row">
+            <div class="col">
+				<div class="setting-btn">
+					<a href="{% url 'add_department' %}"><b>+</b>  Department</a>
+				</div>
+				<table class="table table-hover mt-3" style="width: 100%;">
+					<thead class="table-" style="background-color: #1A2C3A; color: #fff;">
+						<th>Department</th>
+						<th>Date Created</th>
+						<th class="action-btn">Action</th>
+					</thead>
+					<tbody>
+						{% for department in departments %}
+						<tr>
+							<td>{{department.department_name}}</td>
+							<td>{{department.created_date}}</td>
+							<td class="action-btn">
+								<a href="{% url 'update_department' department.id %}" class="action-btn-edit">Edit</a>
+								<a href="{% url 'delete_department' department.id %}" class="action-btn-del">Delete</a>
+							</td>
+
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

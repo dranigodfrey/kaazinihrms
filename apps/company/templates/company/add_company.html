@@ -1,0 +1,21 @@
+{% extends 'dashboard.html' %}
+{% block menu_dashboard_class %}nav-link dash-active {% endblock %}
+{% block menu_setting_class %}nav-link active{% endblock %}
+{% block title %}add company{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}   
+<div class="container container-data-table">
+    <div style="display: flex; align-items: center; justify-content: start; gap: 20px; color: #1A2C3A;">
+        <a href="{% url 'company' %}" class="action-btn-edit"><i class="bx bx-sm bx-chevron-left" id="btn"></i>Back</a>
+        <h6 style="color: #4B5161;">Company</h6>
+    </div>
+	<hr>
+	<div class="mt-4">
+        <form action="" enctype="multipart/form-data" method="POST" class="fw-bold fs-6">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-dark">Save</button>
+        </form>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% block menu_dashboard_class %}nav-link dash-active {% endblock %}
+{% block menu_employee_class %}nav-link active{% endblock %}
+{% block title %}employee{% endblock %}
+{% block content %}
+
+<style>
+	 /* Form Styles */
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+		form {
+			display: flex;
+			justify-content: center; 
+			gap: 5px;
+		}
+
+        input{
+			padding: 4px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+		}
+		select {
+            padding: 7px 7px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 150px;
+        }
+
+        button {
+            padding: 6px 8px;
+            background-color: #1A2C3A;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #29455a;
+        }
+
+		.btn-link {
+			text-decoration: none;
+			padding: 3px 4px;
+			color: #1A2C3A;
+            border: 1.5px solid #1A2C3A;
+            border-radius: 4px;
+            cursor: pointer;
+		}
+		#btn-export{
+			display: flex;
+		}
+		.btn-link:hover {
+			background-color: #1A2C3A;
+			color: white;
+
+        }
+</style>
+       
+<div class="container container-data-table">
+	<h6 style="color: #4B5161;">Employee Details</h6>
+	<hr>
+	<div class="mt-4 form-container">
+			<!-- Search Form -->
+			<form method="get" action="">
+				{{ search_form.search }} 
+				<button type="submit">Search</i></button>
+			</form>
+			<!-- Filter Form -->
+			<form method="get" action="">
+				<!-- {{ filter_form.as_p }} -->
+				<div class="form-group">
+					{{filter_form.office}}
+				</div>
+				<div class="form-group">
+					{{filter_form.office_department}}
+				</div>
+				<div>
+					<button type="submit">Filter</button>
+				</div>
+                <div style="display: flex; gap: 5px;">
+			        <a class="btn-link" href="{% url 'employee' %}" >Clear Filters</a>
+		        </div>
+			</form>
+			
+
+	</div>
+	<div>
+		<table class="table  table-hover mt-4" style="width: 100%;">
+			
+			<thead style="background-color: #1A2C3A; color: #fff;" >
+				<th>Employee</th>
+				<th>Email</th>
+                <th>Phone</th>
+                <th>Department</th>
+                <th>Supervisor</th>
+				{% comment %}
+				<th class="action-btn">Action</th>
+				{% endcomment %}
+			</thead>
+			</a>
+			<tbody>
+				{% for employee in employees %}
+				<tr>
+					<td> 
+						{% if employee.profile_pic and employee.profile_pic.url %}
+							<img style="border-radius: 50%; margin-right: 5px;  " src="{{ employee.profile_pic.url }}" alt="{{ employee.user.first_name }}" width="25" height="25">
+						{% else %}
+							<img  style="border-radius: 50%; margin-right: 5px; "  src="{% static 'images/default_profile.png' %}" alt="Default Image" width="25" height="25">
+						{% endif %} {{employee.user.first_name}} {{employee.user.second_name}}</td>
+					<td>{{employee.employee_email}}</td>
+                    <td>{{employee.employee_phone}}</td>
+					<td>{{employee.office_department.department.department_name}}</td>
+                    <td>{{employee.supervisor}}</td>
+					{% comment %}
+					<td class="action-btn">
+						<a href="{% url 'update_employee' employee.id %}" class="action-btn-edit">View</a>
+					</td>
+					{% endcomment %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

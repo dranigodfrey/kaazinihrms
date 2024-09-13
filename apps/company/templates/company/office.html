@@ -1,0 +1,36 @@
+{% extends 'setting/setting.html' %}
+{% block menu_dashboard_class %}nav-link dash-active{% endblock %}
+{% block setting_office_class %}setting-active {% endblock %}
+{% block setting_content %}
+	<div class="container container-data-table">
+		<div class="row">
+            <div class="col">
+				<div class="setting-btn ">
+					<a href="{% url 'add_office' %}"> <b>+</b>  Office</a>
+				</div>
+				<table class="table table-hover mt-3" style="width: 100%;">
+					<thead class="table-" style="background-color: #1A2C3A; color: #fff;">
+						<th>Office</th>
+						<th>Country</th>
+						<th>District</th>
+						<th class="action-btn">Action</th>
+					</thead>
+					<tbody>
+						{% for office in officies %}
+						<tr>
+							<td>{{office.office_name}}</td>
+							<td>{{office.country}}</td>
+							<td>{{office.district}}</td>
+							<td class="action-btn">
+								<a href="{% url 'update_office' office.id %}" class="action-btn-edit">Edit</a>
+								<a href="{% url 'delete_office' office.id %}" class="action-btn-del">Delete</i></a>
+							</td>
+
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

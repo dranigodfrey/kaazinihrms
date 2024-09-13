@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<p>Welcome, {{ user.username }}!</p>
+<p>Here you can manage all aspects of the system.</p>
+<ul>
+    <li><a href="{% url 'role_list' %}">Manage Roles</a></li>
+    <li><a href="{% url 'user_list' %}">Manage Users</a></li>
+    <!-- Add more links as needed -->
+</ul>
+{% endblock %}

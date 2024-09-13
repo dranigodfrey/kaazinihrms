@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container container-data-table">
+	<header class="d-flex mb-3 justify-content-end align-items-end">
+		<p class="p-2">{{user.username}}</p>
+		<p class="mb-3 p-2">
+			<a href="{% url 'logout' %}"
+				><span class="btn btn-secondary btn-sm">Logout</span></a
+			>
+		</p>
+		<p class="mb-3 p-2">
+			<a href="{% url 'password_change' %}"
+				><span class="btn btn-secondary btn-sm">Change Password</span></a
+			>
+		</p>
+	</header>
+
+	<div>
+		<table class="table table-striped mt-3">
+			<thead class="table-dark">
+				<th>ID</th>
+				<th>USERNAME</th>
+				<th>EMAIL</th>
+				<th>SUPERUSER</th>
+			</thead>
+			<tbody>
+				{% for user in object_list %}
+				<tr>
+					<td>{{user.id}}</td>
+					<td>{{user.username}}</td>
+					<td>{{user.email}}</td>
+					<td>{{user.is_superuser}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

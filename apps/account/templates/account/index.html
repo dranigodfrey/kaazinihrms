@@ -1,0 +1,74 @@
+{% extends 'dashboard.html' %}
+{% block menu_dashboard_class %}nav-link dash-active{% endblock %}
+{% block menu_account_class %}nav-link active{% endblock %}
+{% block title %}account{% endblock %}
+{% block content %}
+
+<style>
+	    input{
+			padding: 4px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+			margin-right: 5px;
+		}
+
+        button {
+            padding: 6px 8px;
+            background-color: #1A2C3A;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1A2C3A;
+        }
+</style>
+
+<div class="container container-data-table">
+		<h6 style="color: #4B5161;">User Account Details</h6>
+		<hr>
+		<div class="search-container mt-4">
+		<form action="" method="GET" style="display: flex; justify-content: center; gap: 0.5px;">
+			{% csrf_token %}
+			<input class="form-control" type="search" name="search" placeholder="Search by name..." aria-label="Search">
+			<button type="submit">Search</i></button>
+		</form>
+		<div class="search-filter">
+			<a href="{% url 'export-users' %}" style="border: #1A2C3A solid 1.5px">
+			<i class="bx bx-sm bx-spreadsheet" id="btn"></i> <span>Export</span></a>
+			<a href="{% url 'role_create' %}" style="border: #1A2C3A solid 1.5px">
+			<i class="bx bx-sm bx-check-shield" id="btn"></i> <span>User Role</span></a>
+			<a href="{% url 'sign_up' %}" style="border: #1A2C3A solid 1.5px">
+			<i class="bx bx-sm bx-user-plus" id="btn"></i> <span>New User</span></a>
+
+		</div>
+	</div>
+	<div>
+		<table class="table table-hover mt-3" style="width: 100%;">
+			<thead class="table-" style="background-color: #1A2C3A; color: #fff;">
+				<th>USERNAME</th>
+				<th>EMAIL</th>
+				<th>SUPERUSER</th>
+				<th>ROLE</th>
+				<th class="action-btn">ACTION</th>
+			</thead>
+			<tbody>
+				{% for user in users %}
+				<tr>
+					<td>{{user.username}}</td>
+					<td>{{user.email}}</td>
+					<td>{{user.is_superuser}}</td>
+					<td>{{user.user_role}}</td>
+					<td class="action-btn">
+						<a href="{% url 'change_user' user.id%}" class="action-btn-edit">Edit</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

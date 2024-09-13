@@ -1,0 +1,183 @@
+{% extends 'dashboard.html' %}
+{% block menu_dashboard_class %}nav-link dash-active{% endblock %}
+{% block menu_leave_class %}nav-link active{% endblock %}  
+{% block title %}leave dashboard{% endblock %} 
+{% block content %}
+          
+<div class="container ">
+    <div class="row">
+        <div class="col-6">
+            <div class="chart-wrapper">
+            <div class="badge-container">
+                
+                <div class="badge badge-pending-leave">
+                    <a href="{% url 'pending_leave'%}">
+                        <div class="label">{{pending_leaves}}</div>
+                        <h6>Pending</h6>
+                     </a>
+                </div>
+               
+                <div class="badge badge-approved-leave">
+                    <a href="{% url 'approved_leave'%}">
+                    <div class="label">{{approved_leaves}}</div>
+                    <h6>Approved</h6>
+                    </a>
+                </div>
+                <div class="badge badge-rejected-leave">
+                    <a href="{% url 'rejected_leave'%}">
+                    <div class="label">{{rejected_leaves}}</div>
+                    <h6>Rejected</h6>
+                    </a>
+                </div>
+            </div>
+            <div class="leave-chart">
+                <div>
+                    <canvas id="leaveChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-6">
+
+            <div class="leave-table">
+                <div class="btn-leave">
+                    <div>
+                         <a href="{% url 'add_leave_request' %}" >
+                            <i class="bx bx-sm bx-calendar"></i>
+                            <span>Request</span></a>
+                    </div>
+                     {% if user.user_role ==  'employee' %}
+                    <div>
+                         <a href="{% url 'approved_leave' %}" >
+                            <i class="bx bx-sm bx-calendar"></i>
+                            <span>Staff On Leave</span></a>
+                    </div>
+                    {% endif %}
+                    {% if user.user_role !=  'employee' %}
+                   <div>
+                        <a href="{% url 'approve_leave' %}" >
+                             <div class="leave-approval-badge">{{leave_request_received}}</div>
+                            <span>New Approval</span></a>
+                   </div>
+                   {% endif %}
+    
+                   {% if user.user_role ==  'admin' or user.user_role ==  'hr admin' %}
+                    <div>
+                        <a href="{% url 'employee_leave' %}" >
+                             <i class="bx bx-sm bx-spreadsheet"></i>
+                            <span>Manage Leave</span></a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="list-group my-3">
+                    <a href="#" class="list-group-item list-group-item-action" aria-current="true" style="background-color: #1A2C3A; color: #fff; ">
+                        <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Leave</h5>
+                        <small>Day</small>
+                        </div>
+                    </a>
+                    {% for leave_type in leave_types %}
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1 leave-type">{{leave_type.leave_type}}</h5>
+                            <small class="text-muted">{{leave_type.number_of_leave_days}} days</small>
+                        </div>
+                    </a>
+                     {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+$(document).ready(function() {
+        $.ajax({
+            url: "{% url 'get_leave_data' %}",
+            type: 'GET', 
+            success: function(response) {
+                const leaveData = response.leave_data;
+                const labels = [];
+                const leaveTakenData = [];
+                const leaveBalanceData = [];
+                const capitalize = s => s && s[0].toUpperCase() + s.slice(1)
+
+                leaveData.forEach(function(leave) {
+                    labels.push(capitalize(leave.leave_type));
+                    leaveTakenData.push(leave.leave_taken);
+                    leaveBalanceData.push(leave.leave_balance);
+                });
+
+                const ctx = document.getElementById('leaveChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Leave Balance',
+                                data: leaveBalanceData,
+                                backgroundColor: "#1A2C3A",
+                                // borderWidth: 1
+                            },
+                            {
+                                label: 'Leave Taken',
+                                data: leaveTakenData,
+                                backgroundColor: "#00ADB5",
+                                // borderWidth: 1,
+                            },
+                        ]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: false,
+                                labels: {
+                                    color: 'rgb(255, 99, 132)'
+                                }
+                            },
+                            title: {
+                            display: true,
+                            text: 'Employee Leave Balance and Leave Taken'
+                        }
+                        },
+                        responsive: true,
+                        indexAxis: 'y',
+                        scales: {
+                            x: {
+                                stacked: true,
+                                grid: {
+                                display: false
+                                },
+                                barPercentage: 2,
+                                categoryPercentage: 2,
+                                ticks: {
+                                    autoSkip: false,
+                                    // maxRotation: 90,
+                                    // minRotation: 90,
+                                    font: {
+                                        size: 13,
+                                    }
+                                }
+                            },
+                            y: {
+                                grid: {
+                                display: false
+                                },
+                                stacked: true,
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            },
+            error: function(response) {
+                console.log('Error:', response);
+            }
+        });
+});
+</script>
+</div>
+{% endblock %}

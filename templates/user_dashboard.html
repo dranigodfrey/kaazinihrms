@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Openself-HRMS</title>
+		{% load bootstrap5 %} 
+		{% bootstrap_css %}
+		{% bootstrap_javascript %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		{% block private_style %}{% endblock %}
+	</head>
+	<body style="transition: 0.5s;">
+		<div class="main-container">
+			<header class="header">
+				<nav>
+					<div class="nav-wrapper">
+						<div class="nav-logo">
+							<i class="bx bx-md bx-menu" id="btn-menu"></i>
+							<h6>Openself-HRMS</h6>
+						</div>
+						
+						<div class="nav-profile">
+							<div class="notification-icon" href="#">
+								<i class="bx bx-sm bx-bell" id="btn"></i>
+								<div class="notification">
+									<div id="btn-notify"><h2>4+</h2></div>
+								</div>
+									<!-- Notification details -->
+									<div class="notification-detail">
+										<ul class="notification-item">
+											<li>
+												<a href="#" >
+													<p>Your Leave has been approved</p>
+												</a>
+											</li>
+											<li>
+												<a href="#" >
+													<p>Your Leave has been approved</p>
+												</a>
+											</li>
+											
+										</ul>
+									</div>
+							</div>
+							<div class="profile-nav-item" id="btn-sub-menu">
+								<span class="user-title">{{user.username}}</span>
+								<img class="user-photo" src="{% static 'images/profile_jpg.jpg' %}" alt="Profile photo"/>	
+							</div>
+							<div>
+								<i class="bx bx-sm bx-dots-vertical-rounded" ></i>
+							</div>
+							<div class="sub-menu">
+								<ul class="sub-menu-item">
+									<li class="sub-menu-link">
+										<a href="{% url 'employee' %}" >
+											<i class="bx bx-sm bx-check-shield"></i>
+											<span>Manage Profile</span>
+										</a>
+										<div><i class="bx bx-sm bx-chevron-right"></i></div>
+									</li>
+									<li class="sub-menu-link">
+										<a href="{% url 'password_change' %}" >
+											<i class="bx bx-sm bx-key"></i>
+											<span class="">Change Password</span>
+										</a>
+										<div><i class="bx bx-sm bx-chevron-right"></i></div>
+									</li>
+									<li class="sub-menu-link">
+										<a href="{% url 'logout' %}" >
+											<i class="bx bx-sm bx-log-out-circle" id="btn"></i>
+											<span class="">Logout</span>
+										</a>
+										<div><i class="bx bx-sm bx-chevron-right"></i></div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</nav>
+
+			</header>
+			<aside class="aside-wrapper">
+				<div class="side-nav">
+					<ul class="main-list-container">
+						<li class="main-list mb-2" >
+							<a href="{% url 'main_dashboard' %}" style="display: flex; align-items: center; gap: 10px; color: black; text-decoration: none; padding: 0px 5px; font-size: .8rem; font-weight: 580;" >
+								<img src="{% static 'images/logo-PALMCorps.png' %}" alt="Profile photo" style="max-height: 38px; border-radius: 50%; padding: 5px; background-color: #fff;"/>
+								<span class="nav-item"">PALM Corps</span>
+							</a>
+						</li>
+	
+						<li class="main-list" >
+							<a href="{% url 'main_dashboard' %}" class="{% block menu_dashboard_class %}nav-link dash-active active{% endblock %}" >
+								<i class="bx bx-sm bx-grid-alt"></i>
+								<span class="nav-item">Dashboard</span>
+							</a>
+						</li>
+						
+						<li class="main-list">
+							<a href="{% url 'employee' %}" class="{% block menu_employee_class %}nav-link {% endblock %}">
+								<i class="bx bx-sm bx-group"></i>
+								<span class="nav-item">Employee</span>
+							</a>
+						</li>
+
+						<li class="main-list">
+							<a href="{% url 'leave_dashboard' %}" class="{% block menu_leave_class %}nav-link {% endblock %}">
+								<i class="bx bx-sm bx-calendar"></i>
+								<span class="nav-item">Leave</span>
+							</a>
+						</li>
+
+					<li class="main-list">
+							<a href="#" class="{% block menu_administration_class %}nav-link {% endblock %}">
+								<i class="bx bx-sm bx-shield-quarter"></i>
+								<span class="nav-item">Admin</span>
+							</a>
+						</li>
+					{% endif %}
+					{% endfor %}
+					</ul>
+				</div>
+			</aside>
+			<main>
+				<div class="main-wrapper">
+					{% block content %}
+					{% endblock %}
+				</div>
+			</main>
+		</div>
+		<script>
+
+			const btn_menu = document.querySelector('#btn-menu')
+			const btn_sub_menu = document.querySelector('#btn-sub-menu')
+			const btn_notify = document.querySelector('#btn-notify')
+			const side_nav = document.querySelector('.side-nav')
+			const sub_menu = document.querySelector('.sub-menu')
+			const notification_detail = document.querySelector('.notification-detail')
+			const main = document.querySelector('.main-wrapper')
+			const main_container = document.querySelector('.main-container')
+
+			btn_menu.addEventListener( 'click', ()=>{
+				side_nav.classList.toggle('min-side-nav')
+				main.classList.toggle('min-main')
+				main_container.classList.toggle('min-container')
+			})
+
+			btn_sub_menu.addEventListener( 'click', ()=>{
+				sub_menu.classList.toggle('open-sub-menu')
+			})
+
+			btn_notify.addEventListener( 'click', ()=>{
+				notification_detail.classList.toggle('open-notify-menu')
+			})
+
+			// const main_list = document.getElementById("main-list-container");
+			// const nav_link = main_list.getElementsByClassName("nav-link");
+			
+			// for (const i = 0; i < nav_link.length; i++) {
+			// 	nav_link[i].addEventListener("click", function() {
+			// 		const current = document.getElementsByClassName("active");
+			// 		current[0].className = current[0].className.replace("active", "");
+			// 		this.className += " active";
+			// 	});
+			// }
+// Add active class to the current button (highlight it)
+// var btns = document.querySelectorAll(".main-list-container");
+//    Array.from(btns).forEach(item => {
+//       item.addEventListener("click", () => {
+//          var selected = document.getElementsByClassName("active");
+//          selected[0].className = selected[0].className.replace(" active", "");
+//          item.className += " active";
+//       });
+//    });
+
+		</script>
+	</body>
+</html>
