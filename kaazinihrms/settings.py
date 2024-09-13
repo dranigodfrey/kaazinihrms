@@ -40,12 +40,12 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['palmcorps.kaazini.com', 'kaazini.com', 'localhost']
+ALLOWED_HOSTS = ['139.59.63.212', '127.0.0.1','palmcorps.kaazini.com', 'kaazini.com', 'localhost']
 
 
 
-SITE_URL = "http://127.0.0.1:8000"  # Change this to your actual domain
-SITE_ID = 1  # Or the correct ID of your site entry
+# SITE_URL = "http://127.0.0.1:8000"  # Change this to your actual domain
+# SITE_ID = 1  # Or the correct ID of your site entry
 
 
 
