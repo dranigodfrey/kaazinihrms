@@ -1,11 +1,11 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
-from employee.models import Employee, EmployeeContract,EmployeeTitle
-from leave.models import LeaveApproval, LeaveRequest, LeaveType, EmployeeLeave
-from company.models import Office, Department, Company
-from setting.models import Holiday, WorkSchedule
-from account.models import CustomUser
+from apps.employee.models import Employee, EmployeeContract,EmployeeTitle
+from apps.leave.models import LeaveApproval, LeaveRequest, LeaveType, EmployeeLeave
+from apps.company.models import Office, Department, Company
+from apps.setting.models import Holiday, WorkSchedule
+from apps.account.models import CustomUser
 from django.conf import settings
 
 
