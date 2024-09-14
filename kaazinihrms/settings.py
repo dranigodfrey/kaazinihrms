@@ -40,7 +40,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['139.59.63.212', '127.0.0.1','palmcorps.kaazini.com', 'kaazini.com', 'localhost']
+ALLOWED_HOSTS = ['139.59.63.212', '*.kaazini.com', 'kaazini.com', '127.0.0.1', 'localhost']
 
 
 
