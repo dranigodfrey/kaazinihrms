@@ -29,7 +29,6 @@ def dashboard(request):
     active_user = request.user
 
     for group in Group.objects.all():
-        print(group)
         if active_user.groups.filter(name='Admin').exists():
                  return render(request, template_name='company/main_dashboard.html')
             # elif active_user.groups.filter(name='HR Admin').exists():
@@ -127,7 +126,7 @@ def sign_in(request):
         user = authenticate(request, username = username, password = password)
         if user is not None:
             login(request, user)
-            return redirect('dashboard')
+            return redirect('leave_dashboard')
         else:
              messages.error(request, 'Access denied please check your email and password.')
     return render(request, template_name='account/login.html')

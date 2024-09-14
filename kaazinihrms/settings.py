@@ -42,7 +42,7 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['139.59.63.212', 'palmcorps.139.59.63.212' 'palmcorps.localhost', '*.kaazini.com', 'kaazini.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['139.59.63.212', '.139.59.63.212' , '.kaazini.com', 'www.kaazini.com', 'kaazini.com', '127.0.0.1', 'localhost']
 
 
 
