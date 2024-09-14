@@ -152,7 +152,7 @@ WSGI_APPLICATION = 'kaazinihrms.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'kaazinihrms_db',
+        'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASS'),
         'HOST': 'localhost',
