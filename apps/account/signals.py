@@ -13,7 +13,7 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.template.loader import render_to_string
 from django.contrib.auth import get_user_model
-from apps.company.models import Company, Office, Department, OfficeDepartment
+from apps.company.models import Office, Department, OfficeDepartment
 from apps.leave.models import LeaveType
 from apps.employee.models import EmployeeTitle
 
