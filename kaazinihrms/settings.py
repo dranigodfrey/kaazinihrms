@@ -46,7 +46,7 @@ ALLOWED_HOSTS = ['kaazini.com', '.kaazini.com','www.kaazini.com']
 
 
 
-# SITE_URL = "http://127.0.0.1:8000"  # Change this to your actual domain
+# SITE_URL = "https://kaazini.com"  # Change this to your actual domain
 # SITE_ID = 1  # Or the correct ID of your site entry
 
 

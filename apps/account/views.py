@@ -31,14 +31,6 @@ def dashboard(request):
     for group in Group.objects.all():
         if active_user.groups.filter(name='Admin').exists():
                  return render(request, template_name='company/main_dashboard.html')
-            # elif active_user.groups.filter(name='HR Admin').exists():
-            #     return render(request, 'dashboards/hr_dashboard.html')
-            # elif active_user.groups.filter(name='Manager').exists():
-            #     return render(request, 'dashboards/manager_dashboard.html')
-            # elif active_user.groups.filter(name='Supervisor').exists():
-            #     return render(request, 'dashboards/supervisor_dashboard.html')
-            # elif active_user.groups.filter(name='Employee').exists():
-            #     return render(request, 'dashboards/employee_dashboard.html')
         else:
             return render(request, template_name='company/main_dashboard.html')
 
@@ -51,15 +43,6 @@ def export_users_to_excel(request):
     response = HttpResponse(dataset.export('xlsx'), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename="users.xlsx"'
     return response
-
-# def dashboard(request):
-#     users = User.objects.all()
-#     admins = ['admin','executive','hr manager']
-#     context = {
-#         'users':users,
-#         'admins': admins,
-#     }
-#     return render(request, template_name='dashboard.html', context=context)
 
 @login_required
 @group_required('Admin')
@@ -155,12 +138,6 @@ def logout_user(request):
 
 def is_admin(user):
     return user.is_superuser or user.groups.filter(name='Admin').exists()
-
-# @login_required
-# @user_passes_test(is_admin)
-# def role_list(request):
-#     roles = Group.objects.all()
-#     return render(request, 'account/role_list.html', {'roles': roles})
 
 @login_required
 @user_passes_test(is_admin)

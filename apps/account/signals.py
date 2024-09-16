@@ -76,10 +76,7 @@ def create_employee(sender, instance, created, **kwargs):
             # Create Employee with default profile image
             with open(default_image_path, 'rb') as image_file:
                  employee.profile_pic.save('default_profile.png', File(image_file), save=True)
-    # else:
-    #     employee = Employee.objects.get(user=instance)
-    #     employee.save()
-
+ 
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
