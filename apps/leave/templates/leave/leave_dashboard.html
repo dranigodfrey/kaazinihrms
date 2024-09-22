@@ -4,19 +4,17 @@
 {% block title %}leave dashboard{% endblock %} 
 {% block content %}
           
-<div class="container ">
-    <div class="row">
-        <div class="col-6">
-            <div class="chart-wrapper">
-            <div class="badge-container">
-                
+<div class="container align-items-center justify-content-center ">
+    <div class="leave-container">
+        <div class="chart-wrapper">
+            <div class="badge-container d-sm-flex">
                 <div class="badge badge-pending-leave">
                     <a href="{% url 'pending_leave'%}">
                         <div class="label">{{pending_leaves}}</div>
                         <h6>Pending</h6>
-                     </a>
+                    </a>
                 </div>
-               
+            
                 <div class="badge badge-approved-leave">
                     <a href="{% url 'approved_leave'%}">
                     <div class="label">{{approved_leaves}}</div>
@@ -36,10 +34,7 @@
                 </div>
             </div>
         </div>
-        </div>
-
-        <div class="col-6">
-
+        <div class="leave-type">
             <div class="leave-table">
                 <div class="btn-leave">
                     <div>
@@ -90,7 +85,7 @@
             </div>
         </div>
     </div>
-
+</div>
 
 <script>
 $(document).ready(function() {
@@ -179,5 +174,5 @@ $(document).ready(function() {
         });
 });
 </script>
-</div>
+
 {% endblock %}
