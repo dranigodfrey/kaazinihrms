@@ -5,41 +5,37 @@
 {% block content %}
           
 <div class="container ">
-    <div class="row">
-        <div class="col-6">
+    <div class="leave-container">
             <div class="chart-wrapper">
-            <div class="badge-container">
+                <div class="badge-container">
+                    <div class="badge badge-pending-leave">
+                        <a href="{% url 'pending_leave'%}">
+                            <div class="label">{{pending_leaves}}</div>
+                            <h6>Pending</h6>
+                        </a>
+                    </div>
                 
-                <div class="badge badge-pending-leave">
-                    <a href="{% url 'pending_leave'%}">
-                        <div class="label">{{pending_leaves}}</div>
-                        <h6>Pending</h6>
-                     </a>
+                    <div class="badge badge-approved-leave">
+                        <a href="{% url 'approved_leave'%}">
+                        <div class="label">{{approved_leaves}}</div>
+                        <h6>Approved</h6>
+                        </a>
+                    </div>
+                    <div class="badge badge-rejected-leave">
+                        <a href="{% url 'rejected_leave'%}">
+                        <div class="label">{{rejected_leaves}}</div>
+                        <h6>Rejected</h6>
+                        </a>
+                    </div>
                 </div>
-               
-                <div class="badge badge-approved-leave">
-                    <a href="{% url 'approved_leave'%}">
-                    <div class="label">{{approved_leaves}}</div>
-                    <h6>Approved</h6>
-                    </a>
-                </div>
-                <div class="badge badge-rejected-leave">
-                    <a href="{% url 'rejected_leave'%}">
-                    <div class="label">{{rejected_leaves}}</div>
-                    <h6>Rejected</h6>
-                    </a>
-                </div>
-            </div>
-            <div class="leave-chart">
-                <div>
-                    <canvas id="leaveChart" width="400" height="300"></canvas>
+                <div class="leave-chart">
+                    <div>
+                        <canvas id="leaveChart" width="400" height="300"></canvas>
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
 
-        <div class="col-6">
-
+        <div class="leave-type">
             <div class="leave-table">
                 <div class="btn-leave">
                     <div>
@@ -91,7 +87,7 @@
         </div>
     </div>
 
-
+</div>
 <script>
 $(document).ready(function() {
         $.ajax({
@@ -179,5 +175,5 @@ $(document).ready(function() {
         });
 });
 </script>
-</div>
+
 {% endblock %}

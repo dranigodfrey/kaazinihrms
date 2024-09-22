@@ -86,7 +86,7 @@ a{
 
 .container-data-table{
     background-color: var(--background-white);
-    padding: 30px 40px;
+    padding: 30px 30px;
     border-radius: 8px;
 }
 
@@ -100,6 +100,7 @@ aside{
 }
 
 aside .side-nav{
+    display: block;
     padding: 0px 15px 15px 15px;
     width: 200px;
     margin-top: 60px;
@@ -154,7 +155,17 @@ aside .a-active, .main-list-item:hover{
 }
 
 aside .min-side-nav{
-    width: 80px;
+    width: 75px;
+}
+
+aside .min-side-nav .main-list-item{
+    margin-left: 20px;
+    transition: all 0.5s;
+    text-decoration: none;
+    border-left: #000 1px solid;
+    color: #000;
+    font-size: .9rem;
+    padding: 5px 10px;
 }
 
 aside .min-side-nav a span, .min-side-nav .main-list-item, .min-side-nav .bx-chevron-down{
@@ -162,8 +173,9 @@ aside .min-side-nav a span, .min-side-nav .main-list-item, .min-side-nav .bx-che
 }
 
 aside .min-side-nav .main-list a{
-    justify-content: center;
+    justify-content: start;
 }
+
 
 aside .min-side-nav .main-list a:hover{
     background-color: #1A2C3A;
@@ -344,19 +356,19 @@ main{
     grid-column: 2/3;
     grid-row: 1/3;
     transition: all 0.5s ease;
-    /* padding: 10px 15px 15px 5px; */
 }
 
 .main-wrapper{
     display: block;
     margin-top: 50px;
-    margin-left: 10px;
     margin-right: 2px;
-    /* border: 1px solid #1A2C3A; */
-    /* background-color: var(--background-white); */
     padding: 20px;
     border-radius: 3px;
-    /* max-width: 100%; */
+}
+
+.leave-container{
+    display: flex;
+    gap: 15px;
 }
 
 .chart-wrapper{
@@ -746,3 +758,89 @@ color: #fff;
 .employee-contact{
     font-size: .85rem;
 }
+
+
+
+/* On screens that are 992px wide or less, 
+   the background color is green */ 
+@media screen and (max-width: 1200px) { 
+    .col-7{
+        width: 60%;
+    }
+    .col-5{
+        width: 40%;
+    }
+    .img-fluid{
+        height: 100%;
+    }
+} 
+
+/* On screens that are 992px wide or less, 
+   the background color is green */ 
+@media screen and (max-width: 992px) { 
+    .col-7{
+    display: none;
+    }
+    .col-5{
+    width: 100%;
+    }
+    .row{
+    justify-content: center;
+    align-items: center;
+    }
+} 
+
+/* On screens that are 600px wide or less, 
+  the background color is yellow */ 
+@media screen and (max-width: 768px) { 
+    .nav-logo h6{
+         display: none;
+    }
+    .main-container{
+    grid-template-columns: 0px 1fr;
+
+    }
+    .min-container{
+        grid-template-columns: 180px 1fr;
+    }
+
+    aside .side-nav{
+         display: none;
+    }
+    aside .min-side-nav{
+        display: block;
+        padding: 0px 15px 15px 15px;
+        width: 200px;
+        margin-top: 60px;
+        transition: all 0.5s ease;
+    }
+    aside .min-side-nav a span, .min-side-nav .main-list-item, .min-side-nav .bx-chevron-down{
+    display: block;
+    }
+
+    /* Main dashboard  */
+    .main-dashboard{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .dash-header ul{
+        flex-direction: column;
+    }
+
+    .leave-container{
+        display: flex;
+        flex-direction: column;
+    }
+    .profile-container{
+         flex-direction: column;
+    }
+     .employee-profile{
+        margin-bottom: 25px;
+    }
+     .form-profile .label{
+            display: flex;
+         flex-direction: column;
+    }
+    
+} 

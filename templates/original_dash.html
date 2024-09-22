@@ -26,6 +26,34 @@
 						</div>
 						
 						<div class="nav-profile">
+							<!-- 
+							<div class="notification-icon" href="#">
+								<i class="bx bx-sm bx-bell" id="btn"></i>
+								<div class="notification">
+									<div id="btn-ntify"><h2>{{pending_leaves}}</h2></div>
+								</div>
+									 Notification details 
+									<div class="notification-detail" id="notification-Modal">
+										<div class="modal-dialog">]
+											<div class="modal-content">
+											<ul class="notification-item ">
+												<li>
+													<a href="#" >
+														<p>Your Leave has been approved</p>
+													</a>
+												</li>
+												<li>
+													<a href="#" >
+														<p>Your Leave has been approved</p>
+													</a>
+												</li>
+											</ul>
+											</div>
+										</div>
+									</div>
+							</div>
+							-->
+
 							<div class="profile-nav-item" id="btn-sub-menu">
 								<span class="user-title">{{user.username}}</span>
 							{% if user.employee.profile_pic %}
@@ -68,9 +96,8 @@
 						</div>
 					</div>
 				</nav>
-			</header>
-            <!-- End Header Section -->
 
+			</header>
 			<aside class="aside-wrapper">
 				<div class="side-nav">
 					<ul class="main-list-container">
@@ -177,9 +204,28 @@
 				sub_menu.classList.toggle('open-sub-menu')
 			})
 
-			// btn_notify.addEventListener( 'click', ()=>{
-			// 	notification_detail.classList.toggle('open-notify-menu')
-			// })
+			btn_notify.addEventListener( 'click', ()=>{
+				notification_detail.classList.toggle('open-notify-menu')
+			})
+			// const main_list = document.getElementById("main-list-container");
+			// const nav_link = main_list.getElementsByClassName("nav-link");
+			
+			// for (const i = 0; i < nav_link.length; i++) {
+			// 	nav_link[i].addEventListener("click", function() {
+			// 		const current = document.getElementsByClassName("active");
+			// 		current[0].className = current[0].className.replace("active", "");
+			// 		this.className += " active";
+			// 	});
+			// }
+// Add active class to the current button (highlight it)
+// var btns = document.querySelectorAll(".main-list-container");
+//    Array.from(btns).forEach(item => {
+//       item.addEventListener("click", () => {
+//          var selected = document.getElementsByClassName("active");
+//          selected[0].className = selected[0].className.replace(" active", "");
+//          item.className += " active";
+//       });
+//    });
 
 		</script>
 	</body>
