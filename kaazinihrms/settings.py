@@ -223,10 +223,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'leave_dashboard'
-<<<<<<< HEAD
-LOGOUT_REDIRECT_URL = 'login'
-
-CSRF_TRUSTED_ORIGINS = ['https://*.kaazini.com','kaazini.com','palmcorps.kaazini.com']
-=======
 LOGOUT_REDIRECT_URL = 'login'
 
