@@ -44,9 +44,9 @@ class LeaveRequest(models.Model):
     start_date = models.DateField()
     end_date =models.DateField()
     days_taken = models.IntegerField(blank=True, null=True)
-    acting_staff = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='acting_employee', blank=True, null=True)
+    acting_staff = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='acting_employee')
     employee_note = models.TextField() 
-    supervisor = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='employee_supervisor', blank=True, null=True)
+    supervisor = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='employee_supervisor')
     leave_request_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
