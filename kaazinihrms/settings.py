@@ -227,4 +227,4 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'leave_dashboard'
 LOGOUT_REDIRECT_URL = 'login'
 
-CSRF_TRUSTED_ORIGINS = ['https://kaazini.com']
+CSRF_TRUSTED_ORIGINS = ['https://*.kaazini.com','kaazini.com','palmcorps.kaazini.com']
