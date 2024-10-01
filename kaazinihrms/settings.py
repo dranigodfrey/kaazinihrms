@@ -32,21 +32,19 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG')
 
-# if DEBUG:
-#     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-#     EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
-# else:
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT  = 587
-EMAIL_USE_TLS = True
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_PORT  = 465
+EMAIL_USE_SSL = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['kaazini.com', '.kaazini.com','www.kaazini.com', '204.48.17.17','localhost']
+ALLOWED_HOSTS = ['*.kaazini.com','kaazini.com', '204.48.17.17','localhost']
 
+CSRF_TRUSTED_ORIGINS = ['https://*.kaazini.com','https://kaazini.com']
 
 
 # SITE_URL = "https://kaazini.com"  # Change this to your actual domain
@@ -225,6 +223,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'leave_dashboard'
+<<<<<<< HEAD
 LOGOUT_REDIRECT_URL = 'login'
 
 CSRF_TRUSTED_ORIGINS = ['https://*.kaazini.com','kaazini.com','palmcorps.kaazini.com']
+=======
+LOGOUT_REDIRECT_URL = 'login'
+

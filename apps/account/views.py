@@ -18,6 +18,7 @@ from django.urls import reverse
 from premailer import transform
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
+import os
 
 
 
@@ -87,7 +88,7 @@ def sign_up(request):
             send_mail(
                 'Welcome to Kaazini HRMS',
                 plain_message,
-                'systems@kaazini.com',
+                os.environ.get('EMAIL_HOST_USER'),
                 [user.email],
                 fail_silently=False,
                 html_message=html_message

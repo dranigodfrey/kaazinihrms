@@ -105,15 +105,14 @@
 
 			
 	</div>
-	<div>
-		<table class="table  table-hover mt-4" style="width: 100%;">
-			
+	<div class="table-responsive">
+		<table class="table table-hover mt-4" style="width: 100%;">
 			<thead style="background-color: #1A2C3A; color: #fff;" >
 				<th>Employee</th>
 				<th>Email</th>
-                <th>Phone</th>
-                <th>Department</th>
-                <th>Supervisor</th>
+				<th>Phone</th>
+				<th>Department</th>
+				<th>Supervisor</th>
 				<th class="action-btn">Action</th>
 			</thead>
 			</a>
@@ -127,9 +126,9 @@
 							<img  style="border-radius: 50%; margin-right: 5px; "  src="{% static 'images/default_profile.png' %}" alt="Default Image" width="25" height="25">
 						{% endif %} {{employee.user.first_name}} {{employee.user.second_name}}</td>
 					<td>{{employee.employee_email}}</td>
-                    <td>{{employee.employee_phone}}</td>
+					<td>{{employee.employee_phone}}</td>
 					<td>{{employee.office_department.department.department_name}}</td>
-                    <td>{{employee.supervisor}}</td>
+					<td>{{employee.supervisor}}</td>
 					<td class="action-btn">
 						<a href="{% url 'update_employee' employee.id %}" class="action-btn-edit">Edit</a>
 					</td>

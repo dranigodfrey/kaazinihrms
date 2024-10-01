@@ -14,6 +14,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
    		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		{% block private_style %}{% endblock %}
+		<link rel="icon" type="image/x-icon" href="{% static 'images/kaazini.ico' %}">
 	</head>
 	<body style="transition: 0.5s;">
 		<div class="main-container">
@@ -144,7 +145,13 @@
 					</ul>
 				</div>
 			</aside>
+	
 			<main>
+			<div class="container">
+				<div class="loader-box">
+					<div id="loader"></div>
+				</div>
+			</div>
 				<div class="main-wrapper">
 					{% block content %}
 					 {% bootstrap_messages %}
@@ -180,6 +187,12 @@
 			// btn_notify.addEventListener( 'click', ()=>{
 			// 	notification_detail.classList.toggle('open-notify-menu')
 			// })
+
+
+  $(window).on('load', function () {
+    $('.loader-box').fadeOut(300)
+  })
+
 
 		</script>
 	</body>
