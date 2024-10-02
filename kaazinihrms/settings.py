@@ -42,7 +42,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['*.kaazini.com','kaazini.com', '204.48.17.17','localhost']
+ALLOWED_HOSTS = ['.kaazini.com','kaazini.com', '204.48.17.17','localhost']
 
 CSRF_TRUSTED_ORIGINS = ['https://*.kaazini.com','https://kaazini.com']
 
