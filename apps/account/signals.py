@@ -5,13 +5,6 @@ from django.conf import settings
 from django.contrib.auth.models import Group
 import os
 from django.core.files import File
-from django.utils.http import urlsafe_base64_encode
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.encoding import force_bytes
-from django.core.mail import send_mail
-from django.urls import reverse
-from django.utils.crypto import get_random_string
-from django.template.loader import render_to_string
 from django.contrib.auth import get_user_model
 from apps.company.models import Office, Department, OfficeDepartment
 from apps.leave.models import LeaveType

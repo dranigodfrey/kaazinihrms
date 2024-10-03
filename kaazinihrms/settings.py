@@ -54,9 +54,7 @@ CSRF_TRUSTED_ORIGINS = ['https://*.kaazini.com','https://kaazini.com']
 
 # Application definition
 
-SHARED_APPS = (
-    'django_tenants',  # mandatory
-    'apps.tenant', # you must list the app where your tenant model resides in
+INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -65,14 +63,14 @@ SHARED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    # install apps
+   # install apps
     'apps.account.apps.AccountConfig',
     'apps.company.apps.CompanyConfig',
     'apps.employee.apps.EmployeeConfig',
     'apps.leave.apps.LeaveConfig',
     'apps.setting.apps.SettingConfig',
     'apps.notification.apps.NotificationConfig',
-  
+
     # external apps
     'crispy_forms',
     'crispy_bootstrap5',
@@ -84,35 +82,10 @@ SHARED_APPS = (
     
 )
 
-TENANT_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
-
-    # install apps
-    'apps.account.apps.AccountConfig',
-    'apps.company.apps.CompanyConfig',
-    'apps.employee.apps.EmployeeConfig',
-    'apps.leave.apps.LeaveConfig',
-    'apps.setting.apps.SettingConfig',
-    'apps.notification.apps.NotificationConfig',
-)
-
-INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
-
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-TENANT_MODEL = "tenant.Client" # app.Model
-
-TENANT_DOMAIN_MODEL = "tenant.Domain"  # app.Model
-
 MIDDLEWARE = [
-    'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -124,7 +97,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'kaazinihrms.urls'
-# PUBLIC_SCHEMA_URLCONF = 'kaazinihrms.urls_public'
 
 TEMPLATES = [
     {
@@ -152,7 +124,7 @@ WSGI_APPLICATION = 'kaazinihrms.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASS'),
@@ -160,11 +132,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-
-DATABASE_ROUTERS = (
-    'django_tenants.routers.TenantSyncRouter',
-)
 
 # DATABASES['default'] = dj_database_url.parse('postgres://palm_hrms_database_user:RtHnT7RARjA2jx6kHxFOMUo2eLnhwgIA@dpg-cpene67109ks73fgo4gg-a.oregon-postgres.render.com/palm_hrms_database')
 
