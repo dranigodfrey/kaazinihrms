@@ -16,6 +16,7 @@ django-crispy-forms==2.1
 django-import-export==4.1.1
 django-multiselectfield==0.1.13
 django-phonenumber-field==7.3.0
+django-tenants==3.7.0
 et-xmlfile==1.1.0
 gunicorn==23.0.0
 idna==3.8

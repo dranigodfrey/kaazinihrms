@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
-import dj_database_url
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -41,8 +40,8 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['.kaazini.com','kaazini.com', '204.48.17.17','localhost']
+# ALLOWED_HOSTS = ['.localhost','localhost']
+ALLOWED_HOSTS = ['.kaazini.com','kaazini.com', '204.48.17.17']
 
 CSRF_TRUSTED_ORIGINS = ['https://*.kaazini.com','https://kaazini.com']
 
@@ -54,7 +53,10 @@ CSRF_TRUSTED_ORIGINS = ['https://*.kaazini.com','https://kaazini.com']
 
 # Application definition
 
-INSTALLED_APPS = (
+SHARED_APPS = (
+    'django_tenants',  # mandatory
+    'apps.client', # you must list the app where your tenant model resides in
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,10 +84,38 @@ INSTALLED_APPS = (
     
 )
 
+
+TENANT_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+   # install apps
+    'apps.account.apps.AccountConfig',
+    'apps.company.apps.CompanyConfig',
+    'apps.employee.apps.EmployeeConfig',
+    'apps.leave.apps.LeaveConfig',
+    'apps.setting.apps.SettingConfig',
+    'apps.notification.apps.NotificationConfig',
+    
+)
+
+INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
+
+TENANT_MODEL = "client.Client" # app.Model
+TENANT_DOMAIN_MODEL = "client.Domain"  # app.Model
+SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
+
+
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
+    'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -97,6 +127,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'kaazinihrms.urls'
+PUBLIC_SCHEMA_URLCONF = 'kaazinihrms.urls_public'
+
 
 TEMPLATES = [
     {
@@ -124,7 +156,7 @@ WSGI_APPLICATION = 'kaazinihrms.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django_tenants.postgresql_backend',
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASS'),
@@ -133,7 +165,9 @@ DATABASES = {
     }
 }
 
-# DATABASES['default'] = dj_database_url.parse('postgres://palm_hrms_database_user:RtHnT7RARjA2jx6kHxFOMUo2eLnhwgIA@dpg-cpene67109ks73fgo4gg-a.oregon-postgres.render.com/palm_hrms_database')
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
 
 AUTH_USER_MODEL = 'account.CustomUser'
 
