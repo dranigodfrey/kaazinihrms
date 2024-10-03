@@ -421,20 +421,13 @@ main{
 }
 
 .badge .label{
-    font-size: .8rem;
-    padding: 8px;
+    padding: 10px;
     width: 35px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
 } 
 .badge a{
     text-decoration: none;
-    justify-content: center;
-     align-items: center;
-     gap: 20px;
+    align-items: center;
+    gap: 20px;
 }
 .badge h6{
     font-size: 1rem;
