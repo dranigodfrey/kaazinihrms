@@ -427,7 +427,7 @@ main{
 .badge a{
     text-decoration: none;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 .badge h6{
     font-size: 1rem;
