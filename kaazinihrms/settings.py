@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #os.environ.get('DEBUG')
+DEBUG = True #os.environ.get('DEBUG')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
@@ -40,14 +40,14 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
-# ALLOWED_HOSTS = ['127.0.0.1','localhost']
-ALLOWED_HOSTS = ['.kaazini.com','kaazini.com', '204.48.17.17',]
+ALLOWED_HOSTS = ['127.0.0.1','localhost']
+# ALLOWED_HOSTS = ['.kaazini.com','kaazini.com', '204.48.17.17',]
 
 CSRF_TRUSTED_ORIGINS = ['https://*.kaazini.com','https://kaazini.com']
 
 
-SITE_URL = "https://kaazini.com"  # Change this to your actual domain
-SITE_ID = 1  # Or the correct ID of your site entry
+# SITE_URL = "https://kaazini.com"  # Change this to your actual domain
+# SITE_ID = 1  # Or the correct ID of your site entry
 
 
 # Application definition
