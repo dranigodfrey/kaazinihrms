@@ -43,8 +43,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = ['.kaazini.com','kaazini.com', '204.48.17.17',]
 
-CSRF_TRUSTED_ORIGINS = ['*']
-# CSRF_TRUSTED_ORIGINS = ['https://*.kaazini.com','https://kaazini.com']
+CSRF_TRUSTED_ORIGINS = ['https://*.kaazini.com','https://kaazini.com', '192.168.0.100',  '192.168.0.103']
 
 
 # SITE_URL = "https://kaazini.com"  # Change this to your actual domain
